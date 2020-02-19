@@ -2,8 +2,9 @@ import 'react-native-gesture-handler';
 
 import React, { useState, useEffect } from 'react';
 import * as Font from 'expo-font';
-import secrets from './config/secrets';
-import config from './config';
+
+import { homePageData } from './src/data/home-page';
+import { categoriesPageData } from './src/data/categories-page';
 
 import AppContext from './src/context/AppContext';
 import Navigation from './src/Navigation';
@@ -11,14 +12,8 @@ import Navigation from './src/Navigation';
 const AppContextProvider = AppContext.Provider;
 
 export default function App() {
-  const [homePage, setHomePage] = useState({
-    newsList: null,
-    url: `${config.NEWS_APIURL}/top-headlines?country=us&apiKey=${secrets.NEWS_APIKEY}`
-  });
-  const [categoriesPage, setCategoriesPage] = useState({
-    newsList: null,
-    url: `${config.NEWS_APIURL}/top-headlines?country=us&category=health&apiKey=${secrets.NEWS_APIKEY}`
-  });
+  const [homePage, setHomePage] = useState(homePageData);
+  const [categoriesPage, setCategoriesPage] = useState(categoriesPageData);
   const [fontLoaded, setFontLoaded] = useState(false);
 
   useEffect(() => {
@@ -50,11 +45,13 @@ export default function App() {
             ...data
           }));
         },
-        handleSetCategoriesPage: data => {
-          setCategoriesPage(currentCategoriesPage => ({
-            ...currentCategoriesPage,
-            ...data
-          }));
+        handleSetCategoriesPage: (data, id) => {
+          setCategoriesPage(currentCategoriesPage => {
+            currentCategoriesPage.list[id].newsList = data;
+            return {
+              ...currentCategoriesPage
+            };
+          });
         }
       }}
     >

@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { StyleSheet } from 'react-native';
 
 import AppContext from '../context/AppContext';
-import NewsList from '../components/NewsList';
+import NewsFlatList from '../components/NewsFlatList';
 import Container from '../components/Container';
 
 const HomeScreen = () => {
@@ -10,7 +10,7 @@ const HomeScreen = () => {
 
   return (
     <Container style={styles.container}>
-      <NewsList
+      <NewsFlatList
         headerText="Top Headlines"
         url={homePage.url}
         newsList={homePage.newsList}

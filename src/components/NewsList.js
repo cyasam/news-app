@@ -1,5 +1,5 @@
-import React, { useContext, useEffect } from 'react';
-import { StyleSheet, FlatList, Text } from 'react-native';
+import React, { useEffect } from 'react';
+import { StyleSheet, View, Text } from 'react-native';
 
 import ListHeader from './ListHeader';
 import ListItem from './ListItem';
@@ -9,45 +9,58 @@ const fetchNewsList = url => {
   return fetch(url).then(response => response.json());
 };
 
-const NewsList = ({ style, headerText, url, newsList, setNewsList }) => {
+const NewsList = ({
+  style,
+  listId,
+  headerText,
+  url,
+  newsList,
+  setNewsList,
+  itemNumber
+}) => {
   const numColumns = 1;
 
   const itemWidth = 100 / numColumns;
 
   useEffect(() => {
     const makeFetchNewsList = async () => {
-      const news = await fetchNewsList(url);
-      setNewsList({ newsList: news.articles });
+      const { articles } = await fetchNewsList(url);
+
+      const news = articles.slice(0, itemNumber);
+      setNewsList(news, listId);
     };
 
     makeFetchNewsList();
   }, []);
 
+  if (!newsList) {
+    return null;
+  }
+
   return (
-    <FlatList
-      style={[styles.list, style]}
-      data={newsList}
-      horizontal={false}
-      numColumns={numColumns}
-      showsVerticalScrollIndicator={false}
-      ListEmptyComponent={() => <NoResult />}
-      ListHeaderComponent={() => (
-        <ListHeader>
-          <Text>{headerText}</Text>
-        </ListHeader>
-      )}
-      renderItem={({ item }) => {
-        return (
-          <ListItem
-            style={{
-              width: `${itemWidth}%`
-            }}
-            item={item}
-          />
-        );
-      }}
-      keyExtractor={(_, index) => index.toString()}
-    />
+    <View style={[styles.list, style]}>
+      <ListHeader>
+        <Text>{headerText}</Text>
+      </ListHeader>
+
+      <View>
+        {newsList.length ? (
+          newsList.map((item, index) => {
+            return (
+              <ListItem
+                style={{
+                  width: `${itemWidth}%`
+                }}
+                key={index}
+                item={item}
+              />
+            );
+          })
+        ) : (
+          <NoResult />
+        )}
+      </View>
+    </View>
   );
 };
 

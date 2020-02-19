@@ -1,6 +1,7 @@
 import React from 'react';
-import { StyleSheet, View, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { Linking } from 'expo';
+import { Image } from 'react-native-expo-image-cache';
 
 import AppHeader from './AppHeader';
 import AppText from './AppText';
@@ -15,7 +16,7 @@ const ListItem = ({ style, item }) => {
         onPress={() => Linking.openURL(item.url)}
       >
         {item.urlToImage && (
-          <Image style={styles.image} source={{ uri: item.urlToImage }} />
+          <Image style={styles.image} uri={item.urlToImage} />
         )}
         <View style={styles.itemDetail}>
           <AppHeader style={styles.title}>{item.title}</AppHeader>
