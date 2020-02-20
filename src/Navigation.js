@@ -4,9 +4,13 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import Constants from 'expo-constants';
+import { enableScreens } from 'react-native-screens';
 
 import HomeScreen from './pages/HomeScreen';
 import CategoriesScreen from './pages/CategoriesScreen';
+import InternetConnection from './components/InternetConnection';
+
+enableScreens();
 
 const Tab = createBottomTabNavigator();
 
@@ -54,4 +58,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Navigation;
+export default InternetConnection(Navigation);

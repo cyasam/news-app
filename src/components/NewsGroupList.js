@@ -3,11 +3,7 @@ import { StyleSheet, View } from 'react-native';
 
 import NewsList from './NewsList';
 
-const NewsGroupList = ({ allList, itemNumber, setNewsList }) => {
-  const setCategoriesPage = (data, listId) => {
-    setNewsList(data, listId);
-  };
-
+const NewsGroupList = ({ allList }) => {
   return (
     <View>
       {Object.keys(allList).map(id => {
@@ -17,10 +13,7 @@ const NewsGroupList = ({ allList, itemNumber, setNewsList }) => {
           <NewsList
             key={id}
             headerText={list.headerText}
-            url={list.url}
             newsList={list.newsList}
-            setNewsList={data => setCategoriesPage(data, id)}
-            itemNumber={itemNumber}
             style={styles.newsList}
           />
         );

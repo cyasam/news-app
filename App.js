@@ -12,6 +12,7 @@ import Navigation from './src/Navigation';
 const AppContextProvider = AppContext.Provider;
 
 export default function App() {
+  const [connection, setConnection] = useState(null);
   const [homePage, setHomePage] = useState(homePageData);
   const [categoriesPage, setCategoriesPage] = useState(categoriesPageData);
   const [fontLoaded, setFontLoaded] = useState(false);
@@ -28,7 +29,7 @@ export default function App() {
     };
 
     loadFont();
-  });
+  }, []);
 
   if (!fontLoaded) {
     return null;
@@ -37,17 +38,21 @@ export default function App() {
   return (
     <AppContextProvider
       value={{
+        connection,
         homePage,
         categoriesPage,
+        handleSetConnection: connection => {
+          setConnection(connection);
+        },
         handleSetHomePage: data => {
           setHomePage(currentHomePage => ({
             ...currentHomePage,
-            newsList: data,
+            data,
           }));
         },
         handleSetCategoriesPage: (data, id) => {
           setCategoriesPage(currentCategoriesPage => {
-            currentCategoriesPage.list[id].newsList = data;
+            currentCategoriesPage.list[id].data = data;
             return {
               ...currentCategoriesPage,
             };

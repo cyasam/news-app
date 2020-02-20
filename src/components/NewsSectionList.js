@@ -1,35 +1,31 @@
 import React, { useRef } from 'react';
-import { StyleSheet, Text, FlatList } from 'react-native';
+import { StyleSheet, Text, SectionList } from 'react-native';
 import { useScrollToTop } from '@react-navigation/native';
 
 import ListHeader from './ListHeader';
 import ListItem from './ListItem';
 import NoResult from './NoResult';
 
-const NewsFlatList = ({ style, headerText, newsList, scrollEnabled }) => {
+const NewsSectionList = ({ style, allList, scrollEnabled }) => {
   const numColumns = 1;
   const itemWidth = 100 / numColumns;
 
   const ref = useRef(null);
   useScrollToTop(ref);
 
-  if (!newsList) {
-    return null;
-  }
-
   return (
-    <FlatList
+    <SectionList
       ref={ref}
       style={[styles.list, style]}
-      data={newsList}
+      sections={allList}
       horizontal={false}
       scrollEnabled={scrollEnabled}
       numColumns={numColumns}
       showsVerticalScrollIndicator={false}
       ListEmptyComponent={() => <NoResult />}
-      ListHeaderComponent={() => (
+      renderSectionHeader={({ section }) => (
         <ListHeader>
-          <Text>{headerText}</Text>
+          <Text>{section.headerText}</Text>
         </ListHeader>
       )}
       renderItem={({ item }) => {
@@ -53,4 +49,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default NewsFlatList;
+export default NewsSectionList;

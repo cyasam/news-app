@@ -1,35 +1,13 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 
 import ListHeader from './ListHeader';
 import ListItem from './ListItem';
 import NoResult from './NoResult';
 
-const fetchNewsList = url => {
-  return fetch(url).then(response => response.json());
-};
-
-const NewsList = ({
-  style,
-  headerText,
-  url,
-  newsList,
-  setNewsList,
-  itemNumber,
-}) => {
+const NewsList = ({ style, headerText, newsList }) => {
   const numColumns = 1;
   const itemWidth = 100 / numColumns;
-
-  useEffect(() => {
-    const makeFetchNewsList = async () => {
-      const { articles } = await fetchNewsList(url);
-
-      const news = articles.slice(0, itemNumber);
-      setNewsList(news);
-    };
-
-    makeFetchNewsList();
-  }, []);
 
   if (!newsList) {
     return null;
