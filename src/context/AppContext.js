@@ -3,14 +3,13 @@ import React from 'react';
 const AppContext = React.createContext({
   homePage: {
     newsList: null,
-    url: null
+    url: null,
   },
   categoriesPage: {
-    newsList: null,
-    url: null
+    list: null,
   },
   handleSetHomePage: () => {},
-  handleSetCategoriesPage: () => {}
+  handleSetCategoriesPage: () => {},
 });
 
 export default AppContext;

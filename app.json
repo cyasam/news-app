@@ -23,6 +23,10 @@
     "androidStatusBar": {
       "barStyle": "light-content",
       "backgroundColor": "#C2185B"
+    },
+    "android": {
+      "package": "com.angrygorilla.newsapp",
+      "versionCode": 1
     }
   }
 }

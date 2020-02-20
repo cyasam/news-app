@@ -11,15 +11,13 @@ const fetchNewsList = url => {
 
 const NewsList = ({
   style,
-  listId,
   headerText,
   url,
   newsList,
   setNewsList,
-  itemNumber
+  itemNumber,
 }) => {
   const numColumns = 1;
-
   const itemWidth = 100 / numColumns;
 
   useEffect(() => {
@@ -27,7 +25,7 @@ const NewsList = ({
       const { articles } = await fetchNewsList(url);
 
       const news = articles.slice(0, itemNumber);
-      setNewsList(news, listId);
+      setNewsList(news);
     };
 
     makeFetchNewsList();
@@ -49,7 +47,7 @@ const NewsList = ({
             return (
               <ListItem
                 style={{
-                  width: `${itemWidth}%`
+                  width: `${itemWidth}%`,
                 }}
                 key={index}
                 item={item}
@@ -66,8 +64,8 @@ const NewsList = ({
 
 const styles = StyleSheet.create({
   list: {
-    paddingHorizontal: 14
-  }
+    paddingHorizontal: 14,
+  },
 });
 
 export default NewsList;

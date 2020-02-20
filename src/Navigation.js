@@ -26,18 +26,18 @@ const Navigation = () => {
             }
 
             return <Ionicons name={iconName} size={size} color={color} />;
-          }
+          },
         })}
         tabBarOptions={{
           activeTintColor: '#fff',
           inactiveTintColor: '#fff',
           indicatorStyle: {
             height: 2,
-            backgroundColor: '#fff'
+            backgroundColor: '#fff',
           },
           style: {
-            backgroundColor: '#C2185B'
-          }
+            backgroundColor: '#C2185B',
+          },
         }}
       >
         <Tab.Screen name="Discover" component={HomeScreen} />
@@ -50,8 +50,8 @@ const Navigation = () => {
 const styles = StyleSheet.create({
   statusBar: {
     position: 'absolute',
-    height: Constants.statusBarHeight
-  }
+    height: Constants.statusBarHeight,
+  },
 });
 
 export default Navigation;

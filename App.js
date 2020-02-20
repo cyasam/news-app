@@ -21,7 +21,7 @@ export default function App() {
       await Font.loadAsync({
         'open-sans': require('./assets/fonts/OpenSans-Regular.ttf'),
         'open-sans-semibold': require('./assets/fonts/OpenSans-SemiBold.ttf'),
-        'open-sans-bold': require('./assets/fonts/OpenSans-Bold.ttf')
+        'open-sans-bold': require('./assets/fonts/OpenSans-Bold.ttf'),
       });
 
       setFontLoaded(true);
@@ -42,17 +42,17 @@ export default function App() {
         handleSetHomePage: data => {
           setHomePage(currentHomePage => ({
             ...currentHomePage,
-            ...data
+            newsList: data,
           }));
         },
         handleSetCategoriesPage: (data, id) => {
           setCategoriesPage(currentCategoriesPage => {
             currentCategoriesPage.list[id].newsList = data;
             return {
-              ...currentCategoriesPage
+              ...currentCategoriesPage,
             };
           });
-        }
+        },
       }}
     >
       <Navigation />

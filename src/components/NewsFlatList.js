@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { StyleSheet, FlatList, Text } from 'react-native';
+import { useScrollToTop } from '@react-navigation/native';
 
 import ListHeader from './ListHeader';
 import ListItem from './ListItem';
@@ -15,11 +16,13 @@ const NewsFlatList = ({
   url,
   newsList,
   setNewsList,
-  scrollEnabled
+  scrollEnabled,
 }) => {
   const numColumns = 1;
-
   const itemWidth = 100 / numColumns;
+
+  const ref = useRef(null);
+  useScrollToTop(ref);
 
   useEffect(() => {
     const makeFetchNewsList = async () => {
@@ -36,6 +39,7 @@ const NewsFlatList = ({
 
   return (
     <FlatList
+      ref={ref}
       style={[styles.list, style]}
       data={newsList}
       horizontal={false}
@@ -52,7 +56,7 @@ const NewsFlatList = ({
         return (
           <ListItem
             style={{
-              width: `${itemWidth}%`
+              width: `${itemWidth}%`,
             }}
             item={item}
           />
@@ -65,8 +69,8 @@ const NewsFlatList = ({
 
 const styles = StyleSheet.create({
   list: {
-    paddingHorizontal: 14
-  }
+    paddingHorizontal: 14,
+  },
 });
 
 export default NewsFlatList;
